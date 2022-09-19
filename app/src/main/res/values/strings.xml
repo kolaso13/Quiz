@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">Quiz</string>
+    <string name="questionlabel">Pregunta</string>
+    <string name="check">Continuar</string>
+    <string name="correctolabel">Ondo crack</string>
+    <string name="incorrectolabel">Hay que estudiar crack</string>
+
+    <string name="pregunta">¿En que ciudad se desarrolla Assassins Creed Brotherhood?</string>
+    <array name="respuestas">
+        <item>Madrid</item>
+        <item>Paris</item>
+        <item>Roma</item>
+        <item>Londres</item>
+    </array>
+    <integer name="correcto">2</integer>
+</resources>
