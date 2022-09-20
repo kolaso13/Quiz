@@ -11,7 +11,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:text="Pregunta"
+        android:text="@string/questionlabel"
         android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -69,8 +69,18 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
         android:backgroundTint="#808080"
-        android:text="@string/check"
+        android:text="@string/continuar"
         app:layout_constraintEnd_toEndOf="@+id/gruporespuestas"
+        app:layout_constraintTop_toBottomOf="@+id/gruporespuestas" />
+
+    <Button
+        android:id="@+id/anterior"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:backgroundTint="#808080"
+        android:text="@string/anterior"
+        app:layout_constraintStart_toStartOf="@+id/gruporespuestas"
         app:layout_constraintTop_toBottomOf="@+id/gruporespuestas" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

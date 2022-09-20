@@ -15,25 +15,30 @@ public class MainActivity extends AppCompatActivity {
     private int idRespuestas[] = {
         R.id.respuesta1,R.id.respuesta2,R.id.respuesta3,R.id.respuesta4
     };
+    private int correcta;
+    private int preguntaActual;
+    private String[] preguntas;
+    private TextView text_question;
+    private RadioGroup group;
+    private boolean[] respuesta_correcta;
+    private Button botonContinuar, botonAnterior;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        TextView text_question = (TextView) findViewById(R.id.pregunta);
-        text_question.setText(R.string.pregunta);
+        text_question = (TextView) findViewById(R.id.pregunta);
+        group = (RadioGroup) findViewById(R.id.gruporespuestas);
+        botonContinuar = (Button) findViewById(R.id.check);
+        botonAnterior = (Button) findViewById(R.id.anterior);
 
-        String[] respuestas = getResources().getStringArray(R.array.respuestas);
-        for(int i=0;i<idRespuestas.length;i++){
-            RadioButton rb = (RadioButton) findViewById(idRespuestas[i]);
-            rb.setText(respuestas[i]);
-        }
+        preguntas = getResources().getStringArray(R.array.preguntas);
+        respuesta_correcta = new boolean[preguntas.length];
+        preguntaActual=0;
+        mostrarPregunta();
 
-        final int correcta = getResources().getInteger(R.integer.correcto);
-        final RadioGroup group = (RadioGroup) findViewById(R.id.gruporespuestas);
-        Button check = (Button) findViewById(R.id.check);
-        check.setOnClickListener(new View.OnClickListener() {
+        botonContinuar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 int id = group.getCheckedRadioButtonId();
@@ -42,14 +47,56 @@ public class MainActivity extends AppCompatActivity {
                     if(idRespuestas[i] == id){
                         answer = i;
                     }
-
                 }
-                if(answer == correcta){
-                    Toast.makeText(MainActivity.this, R.string.correctolabel, Toast.LENGTH_SHORT).show();
+
+                respuesta_correcta[preguntaActual] = (answer == correcta);
+                if(preguntaActual < preguntas.length-1){
+                    preguntaActual++;
+                    mostrarPregunta();
                 }else{
-                    Toast.makeText(MainActivity.this, R.string.incorrectolabel, Toast.LENGTH_SHORT).show();
+                    int correctas = 0, incorrectas = 0;
+                    for(boolean b: respuesta_correcta){
+                      if (b) correctas++;
+                      else incorrectas++;
+                    }
+                    String resultados = String.format("Correctas: %d -- Incorrectas: %d",correctas,incorrectas);
+                    Toast.makeText(MainActivity.this, resultados, Toast.LENGTH_LONG).show();
                 }
             }
         });
+        botonAnterior.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(preguntaActual > 0){
+                    preguntaActual--;
+                    mostrarPregunta();
+                }
+            }
+        });
+    }
+
+    private void mostrarPregunta() {
+        String q = preguntas[preguntaActual];
+        String[] partes = q.split(";");
+
+        group.clearCheck();
+        text_question.setText(partes[0]);
+        for(int i=0;i<idRespuestas.length;i++){
+            RadioButton rb = (RadioButton) findViewById(idRespuestas[i]);
+            String respuesta = partes[i+1];
+            if(respuesta.charAt(0) == '*'){
+                correcta = i;
+                respuesta = respuesta.substring(1);
+            }
+            rb.setText(respuesta);
+        }
+        if(preguntaActual == 0){
+            botonAnterior.setVisibility(View.GONE);
+        }else{
+            botonAnterior.setVisibility(View.VISIBLE);
+        }
+        if(preguntaActual == preguntas.length-1){
+            botonContinuar.setText(R.string.check);
+        }
     }
 }
