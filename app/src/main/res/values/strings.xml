@@ -7,22 +7,11 @@
     <string name="correctolabel">Ondo crack</string>
     <string name="incorrectolabel">Hay que estudiar crack</string>
 
-    <!--
-        <array name="preguntas">
-            <string name="pregunta">¿En que ciudad se desarrolla Assassins Creed Brotherhood?</string>
-            <array name="respuestas">
-                <item name="incorrecto">Madrid</item>
-                <item name="incorrecto">Paris</item>
-                <item name="correcto" >Roma</item>
-                <item name="incorrecto">Londres</item>
-            </array>
-            <integer name="correcto">2</integer>
-        </array>
-        -->
+    <array name="preguntas">
+        <item>¿Como se dice gato en ingles?;*Cat;Kat;Cut;Dog</item>
+        <item>¿Cual es el significado de Snake?;*Serpiente;Rinoceronte;Jirafa;Leon</item>
+        <item>¿Como se dice escuela en ingles?;Prison;Carcel;*School;Zulo</item>
+    </array>
 
-        <array name="preguntas">
-            <item>¿En que ciudad se desarrolla Assassins Creed Brotherhood?;Madrid;Paris;*Roma;Londres</item>
-            <item>¿Cual fue la fecha de lanzamiento del videojuego The Evil Within?;2010;2012;*2014;2016</item>
-        </array>
-
+    <string name="preguntaImg">Which is a panda?</string>
 </resources>

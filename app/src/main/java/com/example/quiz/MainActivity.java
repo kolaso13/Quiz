@@ -2,101 +2,186 @@ package com.example.quiz;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.Objects;
+
 public class MainActivity extends AppCompatActivity {
 
-    private int idRespuestas[] = {
-        R.id.respuesta1,R.id.respuesta2,R.id.respuesta3,R.id.respuesta4
+    private int botonesRespuestas[] = {
+            R.id.respuesta1,R.id.respuesta2,R.id.respuesta3,R.id.respuesta4
     };
-    private int correcta;
-    private int preguntaActual;
-    private String[] preguntas;
-    private TextView text_question;
-    private RadioGroup group;
-    private boolean[] respuesta_correcta;
-    private Button botonContinuar, botonAnterior;
-
+    private int pregunta = 0;
+    private String correcto, textoBoton;
+    Button res1, res2, res3, res4, btnContinuar;
+    ImageButton leon, ardilla, tortuga, panda;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+//        getResources().getStringArray(R.array.preguntas);
 
-        text_question = (TextView) findViewById(R.id.pregunta);
-        group = (RadioGroup) findViewById(R.id.gruporespuestas);
-        botonContinuar = (Button) findViewById(R.id.check);
-        botonAnterior = (Button) findViewById(R.id.anterior);
+        correcto = mostrarPregunta(pregunta);
 
-        preguntas = getResources().getStringArray(R.array.preguntas);
-        respuesta_correcta = new boolean[preguntas.length];
-        preguntaActual=0;
-        mostrarPregunta();
+        btnContinuar = findViewById(R.id.continuar);
 
-        botonContinuar.setOnClickListener(new View.OnClickListener() {
+        res1 = findViewById(R.id.respuesta1);
+        res2 = findViewById(R.id.respuesta2);
+        res3 = findViewById(R.id.respuesta3);
+        res4 = findViewById(R.id.respuesta4);
+        leon= findViewById(R.id.leon);
+        ardilla = findViewById(R.id.ardilla);
+        tortuga = findViewById(R.id.tortuga);
+        panda = findViewById(R.id.panda);
+
+        leon.setVisibility(View.GONE);
+        ardilla.setVisibility(View.GONE);
+        tortuga.setVisibility(View.GONE);
+        panda.setVisibility(View.GONE);
+
+        btnContinuar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                int id = group.getCheckedRadioButtonId();
-                int answer= -1;
-                for (int i=0; i < idRespuestas.length;i++){
-                    if(idRespuestas[i] == id){
-                        answer = i;
-                    }
+                if (pregunta != getResources().getStringArray(R.array.preguntas).length-1){
+                    pregunta++;
+                    correcto = mostrarPregunta(pregunta);
                 }
+                else if(pregunta != getResources().getStringArray(R.array.preguntas).length){
+                    mostrarImgenes();
+                }
+                res1.setBackgroundColor(Color.parseColor("#FF6200ee"));
+                res2.setBackgroundColor(Color.parseColor("#FF6200ee"));
+                res3.setBackgroundColor(Color.parseColor("#FF6200ee"));
+                res4.setBackgroundColor(Color.parseColor("#FF6200ee"));
+            }
+        });
 
-                respuesta_correcta[preguntaActual] = (answer == correcta);
-                if(preguntaActual < preguntas.length-1){
-                    preguntaActual++;
-                    mostrarPregunta();
-                }else{
-                    int correctas = 0, incorrectas = 0;
-                    for(boolean b: respuesta_correcta){
-                      if (b) correctas++;
-                      else incorrectas++;
-                    }
-                    String resultados = String.format("Correctas: %d -- Incorrectas: %d",correctas,incorrectas);
-                    Toast.makeText(MainActivity.this, resultados, Toast.LENGTH_LONG).show();
+        res1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                textoBoton = (String) res1.getText();
+                if (Objects.equals(correcto, textoBoton)){
+                    Toast.makeText(MainActivity.this, "Correcto", Toast.LENGTH_SHORT).show();
+                    res1.setBackgroundColor(Color.parseColor("#31C000"));
+                }else {
+                    Toast.makeText(MainActivity.this, "Incorrecto", Toast.LENGTH_SHORT).show();
+                    res1.setBackgroundColor(Color.parseColor("#CD0000"));
+                }
+                Log.i("Correcto",correcto);
+                Log.i("Texto",textoBoton);
+            }
+        });
+        res2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                textoBoton = (String) res2.getText();
+                if (Objects.equals(correcto, textoBoton)){
+                    Toast.makeText(MainActivity.this, "Correcto", Toast.LENGTH_SHORT).show();
+                    res2.setBackgroundColor(Color.parseColor("#31C000"));
+                }else {
+                    Toast.makeText(MainActivity.this, "Incorrecto", Toast.LENGTH_SHORT).show();
+                    res2.setBackgroundColor(Color.parseColor("#CD0000"));
                 }
             }
         });
-        botonAnterior.setOnClickListener(new View.OnClickListener() {
+        res3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(preguntaActual > 0){
-                    preguntaActual--;
-                    mostrarPregunta();
+                textoBoton = (String) res3.getText();
+                if (Objects.equals(correcto, textoBoton)){
+                    Toast.makeText(MainActivity.this, "Correcto", Toast.LENGTH_SHORT).show();
+                    res3.setBackgroundColor(Color.parseColor("#31C000"));
+                }else {
+                    Toast.makeText(MainActivity.this, "Incorrecto", Toast.LENGTH_SHORT).show();
+                    res3.setBackgroundColor(Color.parseColor("#CD0000"));
                 }
+            }
+        });
+        res4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                textoBoton = (String) res4.getText();
+                if (Objects.equals(correcto, textoBoton)){
+                    Toast.makeText(MainActivity.this, "Correcto", Toast.LENGTH_SHORT).show();
+                    res4.setBackgroundColor(Color.parseColor("#31C000"));
+                }else {
+                    Toast.makeText(MainActivity.this, "Incorrecto", Toast.LENGTH_SHORT).show();
+                    res4.setBackgroundColor(Color.parseColor("#CD0000"));
+                }
+            }
+        });
+        panda.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(MainActivity.this, "Correcto", Toast.LENGTH_SHORT).show();
+            }
+        });
+        leon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(MainActivity.this, "Incorrecto", Toast.LENGTH_SHORT).show();
+            }
+        });
+        tortuga.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(MainActivity.this, "Incorrecto", Toast.LENGTH_SHORT).show();
+            }
+        });
+        ardilla.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(MainActivity.this, "Incorrecto", Toast.LENGTH_SHORT).show();
             }
         });
     }
 
-    private void mostrarPregunta() {
-        String q = preguntas[preguntaActual];
-        String[] partes = q.split(";");
+    private void mostrarImgenes() {
+        res1.setVisibility(View.GONE);
+        res2.setVisibility(View.GONE);
+        res3.setVisibility(View.GONE);
+        res4.setVisibility(View.GONE);
 
-        group.clearCheck();
-        text_question.setText(partes[0]);
-        for(int i=0;i<idRespuestas.length;i++){
-            RadioButton rb = (RadioButton) findViewById(idRespuestas[i]);
-            String respuesta = partes[i+1];
-            if(respuesta.charAt(0) == '*'){
-                correcta = i;
-                respuesta = respuesta.substring(1);
+        leon.setVisibility(View.VISIBLE);
+        ardilla.setVisibility(View.VISIBLE);
+        tortuga.setVisibility(View.VISIBLE);
+        panda.setVisibility(View.VISIBLE);
+        TextView pregunta = (TextView) findViewById(R.id.pregunta);
+        pregunta.setText(getString(R.string.preguntaImg));
+    }
+
+    private String mostrarPregunta(int num){
+        String[] preguntas = getResources().getStringArray(R.array.preguntas);
+        String[] opcion = preguntas[num].split(";");
+        TextView text_pregunta = (TextView) findViewById(R.id.pregunta);
+        text_pregunta.setText(opcion[0]);
+        String correcto = "";
+        for (int x = 0; x < opcion.length-1;x++){
+            Log.i("s",opcion[x]);
+            TextView text_resp = (TextView) findViewById(botonesRespuestas[x]);
+            if (x == 0){
+                if (opcion[x+1].charAt(0) == '*'){
+                    text_resp.setText(opcion[x+1].substring(1));
+                    correcto = opcion[x+1].substring(1);
+                }else {
+                    text_resp.setText(opcion[x+1]);
+                }
+            }else{
+                if (opcion[x+1].charAt(0) == '*'){
+                    text_resp.setText(opcion[x+1].substring(1));
+                    correcto = opcion[x+1].substring(1);
+                }else {
+                    text_resp.setText(opcion[x+1]);
+                }
             }
-            rb.setText(respuesta);
         }
-        if(preguntaActual == 0){
-            botonAnterior.setVisibility(View.GONE);
-        }else{
-            botonAnterior.setVisibility(View.VISIBLE);
-        }
-        if(preguntaActual == preguntas.length-1){
-            botonContinuar.setText(R.string.check);
-        }
+        return correcto;
     }
 }
