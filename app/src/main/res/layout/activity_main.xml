@@ -7,30 +7,17 @@
     tools:context=".MainActivity">
 
 
-
-    <TextView
-        android:id="@+id/label_question"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:text="@string/questionlabel"
-        android:textSize="12sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.04000002" />
-
     <TextView
         android:id="@+id/pregunta"
         android:layout_width="356dp"
         android:layout_height="62dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="44dp"
         android:text="@string/questionlabel"
         android:textColor="?android:attr/textColorPrimary"
         android:textSize="18sp"
-        app:layout_constraintStart_toStartOf="@+id/label_question"
-        app:layout_constraintTop_toBottomOf="@+id/label_question" />
-
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/respuesta1"
@@ -80,6 +67,28 @@
         app:layout_constraintTop_toBottomOf="@+id/pregunta"
         tools:ignore="MissingConstraints" />
 
+    <Button
+        android:id="@+id/check"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="320dp"
+        android:backgroundTint="#808080"
+        android:text="@string/check"
+        app:layout_constraintStart_toStartOf="@+id/pregunta"
+        app:layout_constraintTop_toBottomOf="@+id/pregunta"
+        tools:ignore="MissingConstraints" />
+
+    <Button
+        android:id="@+id/reiniciar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="320dp"
+        android:backgroundTint="#808080"
+        android:text="@string/reiniciar"
+        app:layout_constraintEnd_toEndOf="@+id/pregunta"
+        app:layout_constraintTop_toBottomOf="@+id/pregunta"
+        tools:ignore="MissingConstraints" />
+
     <ImageButton
         android:id="@+id/leon"
         android:layout_width="103dp"
@@ -120,5 +129,23 @@
         app:layout_constraintTop_toBottomOf="@+id/ardilla"
         app:srcCompat="@drawable/tortuga"
         tools:ignore="MissingConstraints" />
+
+    <TextView
+        android:id="@+id/correcto"
+        android:layout_width="355dp"
+        android:layout_height="86dp"
+        android:layout_marginTop="16dp"
+        android:text=""
+        app:layout_constraintStart_toStartOf="@+id/pregunta"
+        app:layout_constraintTop_toBottomOf="@+id/pregunta" />
+
+    <TextView
+        android:id="@+id/incorrecto"
+        android:layout_width="357dp"
+        android:layout_height="74dp"
+        android:layout_marginTop="144dp"
+        android:text=""
+        app:layout_constraintStart_toStartOf="@+id/pregunta"
+        app:layout_constraintTop_toBottomOf="@+id/pregunta" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

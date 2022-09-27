@@ -18,9 +18,14 @@ public class MainActivity extends AppCompatActivity {
     private int botonesRespuestas[] = {
             R.id.respuesta1,R.id.respuesta2,R.id.respuesta3,R.id.respuesta4
     };
+    private int rescorrectas=0, resincorrectas=0, preguntaactual = 0;
+    int red = Color.argb(100, 255,0,0);
+    int green = Color.argb(100, 0,255,0);
+    int transparent = Color.argb(0, 0,0,0);
     private int pregunta = 0;
     private String correcto, textoBoton;
-    Button res1, res2, res3, res4, btnContinuar;
+
+    Button res1, res2, res3, res4, btnContinuar, btnReiniciar, btnFinalizar;
     ImageButton leon, ardilla, tortuga, panda;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,8 +34,9 @@ public class MainActivity extends AppCompatActivity {
 //        getResources().getStringArray(R.array.preguntas);
 
         correcto = mostrarPregunta(pregunta);
-
+        btnReiniciar =findViewById(R.id.reiniciar);
         btnContinuar = findViewById(R.id.continuar);
+        btnFinalizar = findViewById(R.id.check);
 
         res1 = findViewById(R.id.respuesta1);
         res2 = findViewById(R.id.respuesta2);
@@ -41,6 +47,7 @@ public class MainActivity extends AppCompatActivity {
         tortuga = findViewById(R.id.tortuga);
         panda = findViewById(R.id.panda);
 
+        btnFinalizar.setVisibility(View.GONE);
         leon.setVisibility(View.GONE);
         ardilla.setVisibility(View.GONE);
         tortuga.setVisibility(View.GONE);
@@ -55,14 +62,83 @@ public class MainActivity extends AppCompatActivity {
                 }
                 else if(pregunta != getResources().getStringArray(R.array.preguntas).length){
                     mostrarImgenes();
+
                 }
                 res1.setBackgroundColor(Color.parseColor("#FF6200ee"));
                 res2.setBackgroundColor(Color.parseColor("#FF6200ee"));
                 res3.setBackgroundColor(Color.parseColor("#FF6200ee"));
                 res4.setBackgroundColor(Color.parseColor("#FF6200ee"));
+
+                res1.setClickable(true);
+                res2.setClickable(true);
+                res3.setClickable(true);
+                res4.setClickable(true);
+
+                res1.setEnabled(true);
+                res2.setEnabled(true);
+                res3.setEnabled(true);
+                res4.setEnabled(true);
             }
         });
 
+        btnReiniciar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                pregunta=0;
+                correcto = mostrarPregunta(pregunta);
+                resincorrectas=0;
+                rescorrectas=0;
+                preguntaactual=0;
+
+                leon.setVisibility(View.GONE);
+                ardilla.setVisibility(View.GONE);
+                tortuga.setVisibility(View.GONE);
+                panda.setVisibility(View.GONE);
+                btnFinalizar.setVisibility(View.GONE);
+
+                btnContinuar.setVisibility(View.VISIBLE);
+                res1.setVisibility(View.VISIBLE);
+                res2.setVisibility(View.VISIBLE);
+                res3.setVisibility(View.VISIBLE);
+                res4.setVisibility(View.VISIBLE);
+
+                res1.setBackgroundColor(Color.parseColor("#FF6200ee"));
+                res2.setBackgroundColor(Color.parseColor("#FF6200ee"));
+                res3.setBackgroundColor(Color.parseColor("#FF6200ee"));
+                res4.setBackgroundColor(Color.parseColor("#FF6200ee"));
+                TextView correctoTV = findViewById(R.id.correcto);
+                TextView incorrectoTV = findViewById(R.id.incorrecto);
+                correctoTV.setText("");
+                incorrectoTV.setText("");
+
+                ardilla.setColorFilter(transparent);
+                leon.setColorFilter(transparent);
+                tortuga.setColorFilter(transparent);
+                panda.setColorFilter(transparent);
+            }
+        });
+
+        btnFinalizar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                leon.setVisibility(View.GONE);
+                ardilla.setVisibility(View.GONE);
+                tortuga.setVisibility(View.GONE);
+                panda.setVisibility(View.GONE);
+                btnFinalizar.setVisibility(View.GONE);
+                btnContinuar.setVisibility(View.GONE);
+                res1.setVisibility(View.GONE);
+                res2.setVisibility(View.GONE);
+                res3.setVisibility(View.GONE);
+                res4.setVisibility(View.GONE);
+                TextView text_pregunta =  findViewById(R.id.pregunta);
+                text_pregunta.setText(getString(R.string.resultado));
+                TextView correctoTV = findViewById(R.id.correcto);
+                TextView incorrectoTV = findViewById(R.id.incorrecto);
+                correctoTV.setText("Respuestas Correctas"+ rescorrectas);
+                incorrectoTV.setText("Respuestas Inorrectas"+ resincorrectas);
+            }
+        });
         res1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -70,12 +146,16 @@ public class MainActivity extends AppCompatActivity {
                 if (Objects.equals(correcto, textoBoton)){
                     Toast.makeText(MainActivity.this, "Correcto", Toast.LENGTH_SHORT).show();
                     res1.setBackgroundColor(Color.parseColor("#31C000"));
+                    rescorrectas++;
                 }else {
                     Toast.makeText(MainActivity.this, "Incorrecto", Toast.LENGTH_SHORT).show();
                     res1.setBackgroundColor(Color.parseColor("#CD0000"));
+                    resincorrectas++;
                 }
-                Log.i("Correcto",correcto);
-                Log.i("Texto",textoBoton);
+                res1.setClickable(false);
+                res2.setEnabled(false);
+                res3.setEnabled(false);
+                res4.setEnabled(false);
             }
         });
         res2.setOnClickListener(new View.OnClickListener() {
@@ -85,10 +165,17 @@ public class MainActivity extends AppCompatActivity {
                 if (Objects.equals(correcto, textoBoton)){
                     Toast.makeText(MainActivity.this, "Correcto", Toast.LENGTH_SHORT).show();
                     res2.setBackgroundColor(Color.parseColor("#31C000"));
+                    rescorrectas++;
+
                 }else {
                     Toast.makeText(MainActivity.this, "Incorrecto", Toast.LENGTH_SHORT).show();
                     res2.setBackgroundColor(Color.parseColor("#CD0000"));
+                    resincorrectas++;
                 }
+                res2.setClickable(false);
+                res1.setEnabled(false);
+                res3.setEnabled(false);
+                res4.setEnabled(false);
             }
         });
         res3.setOnClickListener(new View.OnClickListener() {
@@ -98,10 +185,17 @@ public class MainActivity extends AppCompatActivity {
                 if (Objects.equals(correcto, textoBoton)){
                     Toast.makeText(MainActivity.this, "Correcto", Toast.LENGTH_SHORT).show();
                     res3.setBackgroundColor(Color.parseColor("#31C000"));
+                    rescorrectas++;
+
                 }else {
                     Toast.makeText(MainActivity.this, "Incorrecto", Toast.LENGTH_SHORT).show();
                     res3.setBackgroundColor(Color.parseColor("#CD0000"));
+                    resincorrectas++;
                 }
+                res3.setClickable(false);
+                res1.setEnabled(false);
+                res2.setEnabled(false);
+                res4.setEnabled(false);
             }
         });
         res4.setOnClickListener(new View.OnClickListener() {
@@ -111,34 +205,63 @@ public class MainActivity extends AppCompatActivity {
                 if (Objects.equals(correcto, textoBoton)){
                     Toast.makeText(MainActivity.this, "Correcto", Toast.LENGTH_SHORT).show();
                     res4.setBackgroundColor(Color.parseColor("#31C000"));
+                    rescorrectas++;
+
                 }else {
                     Toast.makeText(MainActivity.this, "Incorrecto", Toast.LENGTH_SHORT).show();
                     res4.setBackgroundColor(Color.parseColor("#CD0000"));
+                    resincorrectas++;
                 }
+                res4.setClickable(false);
+                res1.setEnabled(false);
+                res2.setEnabled(false);
+                res3.setEnabled(false);
             }
         });
+
         panda.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(MainActivity.this, "Correcto", Toast.LENGTH_SHORT).show();
+                panda.setColorFilter(green);
+                panda.setClickable(false);
+                leon.setClickable(false);
+                tortuga.setClickable(false);
+                ardilla.setClickable(false);
+                rescorrectas++;
+
             }
         });
         leon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(MainActivity.this, "Incorrecto", Toast.LENGTH_SHORT).show();
+                resincorrectas++;
+                leon.setColorFilter(red);
+                panda.setClickable(false);
+                leon.setClickable(false);
+                tortuga.setClickable(false);
+                ardilla.setClickable(false);
             }
         });
         tortuga.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(MainActivity.this, "Incorrecto", Toast.LENGTH_SHORT).show();
+                resincorrectas++;
+                tortuga.setColorFilter(red);
+                panda.setClickable(false);
+                leon.setClickable(false);
+                tortuga.setClickable(false);
+                ardilla.setClickable(false);
             }
         });
         ardilla.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(MainActivity.this, "Incorrecto", Toast.LENGTH_SHORT).show();
+                resincorrectas++;
+                ardilla.setColorFilter(red);
+                panda.setClickable(false);
+                leon.setClickable(false);
+                tortuga.setClickable(false);
+                ardilla.setClickable(false);
             }
         });
     }
@@ -148,19 +271,22 @@ public class MainActivity extends AppCompatActivity {
         res2.setVisibility(View.GONE);
         res3.setVisibility(View.GONE);
         res4.setVisibility(View.GONE);
-
+        btnContinuar.setVisibility(View.GONE);
+        pregunta++;
+        btnFinalizar.setVisibility(View.VISIBLE);
         leon.setVisibility(View.VISIBLE);
         ardilla.setVisibility(View.VISIBLE);
         tortuga.setVisibility(View.VISIBLE);
         panda.setVisibility(View.VISIBLE);
         TextView pregunta = (TextView) findViewById(R.id.pregunta);
         pregunta.setText(getString(R.string.preguntaImg));
+
     }
 
     private String mostrarPregunta(int num){
         String[] preguntas = getResources().getStringArray(R.array.preguntas);
         String[] opcion = preguntas[num].split(";");
-        TextView text_pregunta = (TextView) findViewById(R.id.pregunta);
+        TextView text_pregunta =  findViewById(R.id.pregunta);
         text_pregunta.setText(opcion[0]);
         String correcto = "";
         for (int x = 0; x < opcion.length-1;x++){

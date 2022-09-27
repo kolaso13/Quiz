@@ -1,9 +1,11 @@
 <resources>
-    <string name="app_name">Quiz</string>
+    <string name="app_name" translatable="false">Quiz</string>
     <string name="questionlabel">Pregunta</string>
     <string name="check">Comprobar</string>
     <string name="anterior">Anterior</string>
+    <string name="resultado">Resultado</string>
     <string name="continuar">Continuar</string>
+    <string name="reiniciar">Reiniciar</string>
     <string name="correctolabel">Ondo crack</string>
     <string name="incorrectolabel">Hay que estudiar crack</string>
 
@@ -13,5 +15,5 @@
         <item>¿Como se dice escuela en ingles?;Prison;Carcel;*School;Zulo</item>
     </array>
 
-    <string name="preguntaImg">Which is a panda?</string>
+    <string name="preguntaImg">¿Cual es el panda?</string>
 </resources>

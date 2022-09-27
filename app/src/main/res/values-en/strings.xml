@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Quiz</string>
+    <string name="questionlabel">Question</string>
+    <string name="check">Check</string>
+    <string name="resultado">Result</string>
+    <string name="anterior">Previous</string>
+    <string name="continuar">Continue</string>
+    <string name="reiniciar">Reset</string>
+    <string name="correctolabel">Well done</string>
+    <string name="incorrectolabel">Wrong answer</string>
+
+    <array name="preguntas">
+        <item>How do you say cat in English?;*Cat;Kat;Cut;Dog</item>
+        <item>What is the meaning of Snake?;*Serpiente;Rinoceronte;Jirafa;Leon</item>
+        <item>How do you say school in english?;Prison;Carcel;*School;Zulo</item>
+    </array>
+
+    <string name="preguntaImg">What is the panda?</string>
+
+</resources>
