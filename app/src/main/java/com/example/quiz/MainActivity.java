@@ -2,6 +2,8 @@ package com.example.quiz;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
@@ -25,7 +27,7 @@ public class MainActivity extends AppCompatActivity {
     private int pregunta = 0;
     private String correcto, textoBoton;
 
-    Button res1, res2, res3, res4, btnContinuar, btnReiniciar, btnFinalizar;
+    Button res1, res2, res3, res4, btnContinuar, btnReiniciar, btnFinalizar, btncambio;
     ImageButton leon, ardilla, tortuga, panda;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
         btnReiniciar =findViewById(R.id.reiniciar);
         btnContinuar = findViewById(R.id.continuar);
         btnFinalizar = findViewById(R.id.check);
+        btncambio= findViewById(R.id.cambiar);
 
         res1 = findViewById(R.id.respuesta1);
         res2 = findViewById(R.id.respuesta2);
@@ -74,47 +77,15 @@ public class MainActivity extends AppCompatActivity {
                 res3.setClickable(true);
                 res4.setClickable(true);
 
-                res1.setEnabled(true);
-                res2.setEnabled(true);
-                res3.setEnabled(true);
-                res4.setEnabled(true);
+
             }
         });
 
         btnReiniciar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                pregunta=0;
-                correcto = mostrarPregunta(pregunta);
-                resincorrectas=0;
-                rescorrectas=0;
-                preguntaactual=0;
-
-                leon.setVisibility(View.GONE);
-                ardilla.setVisibility(View.GONE);
-                tortuga.setVisibility(View.GONE);
-                panda.setVisibility(View.GONE);
-                btnFinalizar.setVisibility(View.GONE);
-
-                btnContinuar.setVisibility(View.VISIBLE);
-                res1.setVisibility(View.VISIBLE);
-                res2.setVisibility(View.VISIBLE);
-                res3.setVisibility(View.VISIBLE);
-                res4.setVisibility(View.VISIBLE);
-
-                res1.setBackgroundColor(Color.parseColor("#FF6200ee"));
-                res2.setBackgroundColor(Color.parseColor("#FF6200ee"));
-                res3.setBackgroundColor(Color.parseColor("#FF6200ee"));
-                res4.setBackgroundColor(Color.parseColor("#FF6200ee"));
-                TextView correctoTV = findViewById(R.id.correcto);
-                TextView incorrectoTV = findViewById(R.id.incorrecto);
-                correctoTV.setText("");
-                incorrectoTV.setText("");
-
-                ardilla.setColorFilter(transparent);
-                leon.setColorFilter(transparent);
-                tortuga.setColorFilter(transparent);
-                panda.setColorFilter(transparent);
+                Activity Acti = MainActivity.this;
+                Acti.recreate();
             }
         });
 
@@ -139,6 +110,15 @@ public class MainActivity extends AppCompatActivity {
                 incorrectoTV.setText("Respuestas Inorrectas"+ resincorrectas);
             }
         });
+
+        btncambio.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, MainActivity2.class);
+                startActivity(intent);
+            }
+        });
+
         res1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -153,9 +133,9 @@ public class MainActivity extends AppCompatActivity {
                     resincorrectas++;
                 }
                 res1.setClickable(false);
-                res2.setEnabled(false);
-                res3.setEnabled(false);
-                res4.setEnabled(false);
+                res2.setClickable(false);
+                res3.setClickable(false);
+                res4.setClickable(false);
             }
         });
         res2.setOnClickListener(new View.OnClickListener() {
@@ -173,9 +153,9 @@ public class MainActivity extends AppCompatActivity {
                     resincorrectas++;
                 }
                 res2.setClickable(false);
-                res1.setEnabled(false);
-                res3.setEnabled(false);
-                res4.setEnabled(false);
+                res1.setClickable(false);
+                res3.setClickable(false);
+                res4.setClickable(false);
             }
         });
         res3.setOnClickListener(new View.OnClickListener() {
@@ -193,9 +173,9 @@ public class MainActivity extends AppCompatActivity {
                     resincorrectas++;
                 }
                 res3.setClickable(false);
-                res1.setEnabled(false);
-                res2.setEnabled(false);
-                res4.setEnabled(false);
+                res1.setClickable(false);
+                res2.setClickable(false);
+                res4.setClickable(false);
             }
         });
         res4.setOnClickListener(new View.OnClickListener() {
@@ -213,9 +193,9 @@ public class MainActivity extends AppCompatActivity {
                     resincorrectas++;
                 }
                 res4.setClickable(false);
-                res1.setEnabled(false);
-                res2.setEnabled(false);
-                res3.setEnabled(false);
+                res1.setClickable(false);
+                res2.setClickable(false);
+                res3.setClickable(false);
             }
         });
 

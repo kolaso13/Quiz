@@ -4,6 +4,9 @@
     <string name="check">Comprobar</string>
     <string name="anterior">Anterior</string>
     <string name="resultado">Resultado</string>
+    <string name="contruccion">En construcción</string>
+    <string name="volver">Volver</string>
+    <string name="cambiar">Cambiar</string>
     <string name="continuar">Continuar</string>
     <string name="reiniciar">Reiniciar</string>
     <string name="correctolabel">Ondo crack</string>

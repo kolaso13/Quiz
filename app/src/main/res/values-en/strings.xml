@@ -5,6 +5,9 @@
     <string name="check">Check</string>
     <string name="resultado">Result</string>
     <string name="anterior">Previous</string>
+    <string name="contruccion">Under Construction</string>
+    <string name="volver">Return</string>
+    <string name="cambiar">Change</string>
     <string name="continuar">Continue</string>
     <string name="reiniciar">Reset</string>
     <string name="correctolabel">Well done</string>
