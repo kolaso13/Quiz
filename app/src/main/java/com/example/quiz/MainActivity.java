@@ -5,7 +5,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
+import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.speech.tts.TextToSpeech;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -13,6 +15,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.Locale;
 import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity {
@@ -26,7 +29,8 @@ public class MainActivity extends AppCompatActivity {
     int transparent = Color.argb(0, 0,0,0);
     private int pregunta = 0;
     private String correcto, textoBoton;
-
+    TextToSpeech textToSpeech;
+    MediaPlayer vegetta, perowilly, mpFin;
     Button res1, res2, res3, res4, btnContinuar, btnReiniciar, btnFinalizar, btncambio;
     ImageButton leon, ardilla, tortuga, panda;
     @Override
@@ -40,6 +44,9 @@ public class MainActivity extends AppCompatActivity {
         btnContinuar = findViewById(R.id.continuar);
         btnFinalizar = findViewById(R.id.check);
         btncambio= findViewById(R.id.cambiar);
+
+        vegetta = MediaPlayer.create(this, R.raw.vegettaintro);
+        perowilly = MediaPlayer.create(this, R.raw.perowilly);
 
         res1 = findViewById(R.id.respuesta1);
         res2 = findViewById(R.id.respuesta2);
@@ -127,10 +134,12 @@ public class MainActivity extends AppCompatActivity {
                     Toast.makeText(MainActivity.this, "Correcto", Toast.LENGTH_SHORT).show();
                     res1.setBackgroundColor(Color.parseColor("#31C000"));
                     rescorrectas++;
+                    vegetta.start();
                 }else {
                     Toast.makeText(MainActivity.this, "Incorrecto", Toast.LENGTH_SHORT).show();
                     res1.setBackgroundColor(Color.parseColor("#CD0000"));
                     resincorrectas++;
+                    perowilly.start();
                 }
                 res1.setClickable(false);
                 res2.setClickable(false);
@@ -146,11 +155,12 @@ public class MainActivity extends AppCompatActivity {
                     Toast.makeText(MainActivity.this, "Correcto", Toast.LENGTH_SHORT).show();
                     res2.setBackgroundColor(Color.parseColor("#31C000"));
                     rescorrectas++;
-
+                    vegetta.start();
                 }else {
                     Toast.makeText(MainActivity.this, "Incorrecto", Toast.LENGTH_SHORT).show();
                     res2.setBackgroundColor(Color.parseColor("#CD0000"));
                     resincorrectas++;
+                    perowilly.start();
                 }
                 res2.setClickable(false);
                 res1.setClickable(false);
@@ -166,11 +176,12 @@ public class MainActivity extends AppCompatActivity {
                     Toast.makeText(MainActivity.this, "Correcto", Toast.LENGTH_SHORT).show();
                     res3.setBackgroundColor(Color.parseColor("#31C000"));
                     rescorrectas++;
-
+                    vegetta.start();
                 }else {
                     Toast.makeText(MainActivity.this, "Incorrecto", Toast.LENGTH_SHORT).show();
                     res3.setBackgroundColor(Color.parseColor("#CD0000"));
                     resincorrectas++;
+                    perowilly.start();
                 }
                 res3.setClickable(false);
                 res1.setClickable(false);
@@ -186,11 +197,12 @@ public class MainActivity extends AppCompatActivity {
                     Toast.makeText(MainActivity.this, "Correcto", Toast.LENGTH_SHORT).show();
                     res4.setBackgroundColor(Color.parseColor("#31C000"));
                     rescorrectas++;
-
+                    vegetta.start();
                 }else {
                     Toast.makeText(MainActivity.this, "Incorrecto", Toast.LENGTH_SHORT).show();
                     res4.setBackgroundColor(Color.parseColor("#CD0000"));
                     resincorrectas++;
+                    perowilly.start();
                 }
                 res4.setClickable(false);
                 res1.setClickable(false);
@@ -208,7 +220,7 @@ public class MainActivity extends AppCompatActivity {
                 tortuga.setClickable(false);
                 ardilla.setClickable(false);
                 rescorrectas++;
-
+                vegetta.start();
             }
         });
         leon.setOnClickListener(new View.OnClickListener() {
@@ -220,6 +232,7 @@ public class MainActivity extends AppCompatActivity {
                 leon.setClickable(false);
                 tortuga.setClickable(false);
                 ardilla.setClickable(false);
+                perowilly.start();
             }
         });
         tortuga.setOnClickListener(new View.OnClickListener() {
@@ -231,6 +244,7 @@ public class MainActivity extends AppCompatActivity {
                 leon.setClickable(false);
                 tortuga.setClickable(false);
                 ardilla.setClickable(false);
+                perowilly.start();
             }
         });
         ardilla.setOnClickListener(new View.OnClickListener() {
@@ -242,6 +256,26 @@ public class MainActivity extends AppCompatActivity {
                 leon.setClickable(false);
                 tortuga.setClickable(false);
                 ardilla.setClickable(false);
+                perowilly.start();
+            }
+        });
+
+        textToSpeech = new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
+            @Override
+            public void onInit(int i) {
+                // if No error is found then only it will run
+                if(i!=TextToSpeech.ERROR){
+                    // To Choose language of speech
+                    textToSpeech.setLanguage(Locale.UK);
+                }
+            }
+        });
+
+        TextView textPreguntas = (TextView) findViewById(R.id.pregunta);
+        textPreguntas.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                textToSpeech.speak(textPreguntas.getText().toString(),TextToSpeech.QUEUE_FLUSH,null);
             }
         });
     }

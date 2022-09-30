@@ -11,11 +11,11 @@
         android:id="@+id/pregunta"
         android:layout_width="356dp"
         android:layout_height="62dp"
-        android:layout_marginStart="16dp"
         android:layout_marginTop="44dp"
         android:text="@string/questionlabel"
         android:textColor="?android:attr/textColorPrimary"
         android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -152,10 +152,10 @@
         android:id="@+id/cambiar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="388dp"
         android:backgroundTint="#808080"
         android:text="@string/cambiar"
-        app:layout_constraintStart_toStartOf="@+id/continuar"
-        app:layout_constraintTop_toBottomOf="@+id/continuar" />
+        app:layout_constraintStart_toStartOf="@+id/pregunta"
+        app:layout_constraintTop_toBottomOf="@+id/pregunta" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
